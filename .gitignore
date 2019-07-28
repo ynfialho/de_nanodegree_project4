@@ -105,5 +105,5 @@ venv.bak/
 
 # Project
 data/
-dl.cfg
 .vscode/
+spark-warehouse/
