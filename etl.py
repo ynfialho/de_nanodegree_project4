@@ -83,8 +83,10 @@ def process_log_data(spark, input_data, output_data):
 
 def main():
     spark = create_spark_session()
-    input_data = "s3a://udacity-dend/"
-    output_data = ""
+    root_prefix = 'udacity-dend'
+    output_prefix = 'analytics'
+    input_data = "s3a://{}/".format(root_prefix)
+    output_data = "s3a://{}/{}/".format(root_prefix, output_prefix)
     
     process_song_data(spark, input_data, output_data)    
     process_log_data(spark, input_data, output_data)
