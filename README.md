@@ -57,3 +57,23 @@ WHERE cast(t.timestamp as date) between date_add('day', -30, now()) and date_add
 GROUP BY 1, 2
 ORDER BY 2
 ```
+
+* Total users
+```sql
+SELECT  
+	COUNT(DISTINCT user_id) total_users
+FROM songplays_table 
+```
+
+* Panamanian artists who were played in the last 90 days
+```sql
+SELECT  DISTINCT
+	a.artist_name
+FROM songplays_table sp
+JOIN artists_table AS a 
+	ON a.artist_id = sp.artist_id
+JOIN time_table    AS t 
+	ON t.start_time = sp.start_time
+WHERE a.artist_location = 'Panama'
+and cast(t.timestamp as date) between date_add('day', -90, now()) and date_add('day', 0, now()) 
+```
