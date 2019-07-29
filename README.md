@@ -41,3 +41,19 @@ log_data/2018/11/2018-11-13-events.json
 python etl.py
 ```
 
+## Example queries
+Data lake usage examples consider AWS Athena as a source of data availability
+
+* Count of songs played in last 30 days
+```sql
+SELECT  
+	sp.user_id,
+	cast(t.timestamp as date) as dt_play,
+	count(sp.song_id) count_songs
+FROM songplays_table AS sp
+JOIN time_table    AS t 
+	ON t.start_time = sp.start_time
+WHERE cast(t.timestamp as date) between date_add('day', -30, now()) and date_add('day', 0, now()) 
+GROUP BY 1, 2
+ORDER BY 2
+```
